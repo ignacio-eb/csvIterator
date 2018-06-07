@@ -14,7 +14,7 @@ class CSVReader():
                 total = total + 1
         return total
 
-    def compareURL(self,baseurl, current):
+    def compare_url(self,baseurl, current):
         if str(baseurl) == str(current):
             print(baseurl, " is equal to ", current)
         else:
@@ -38,7 +38,7 @@ class CSVReader():
                 print ("Current URL is: ", current)
 
                 #compare URLs are equal
-                self.compareURL(baseUrl,current)
+                self.compare_url(baseUrl,current)
 
                 #Check that BUY Ticket button is visible
                 try:
