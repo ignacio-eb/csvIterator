@@ -5,7 +5,7 @@ class CSVReader():
 
     csvPath = 'ticketfly_urls.csv'
 
-    def calcTotalUrls(self):
+    def calc_total_urls(self):
         total = 0
 
         with open(str(self.csvPath)) as csvfile:
@@ -20,9 +20,9 @@ class CSVReader():
         else:
             print(baseurl, " --> DO NOT MATCH with current URL: ", current)
 
-    def csvIterator(self):
+    def csv_iterator(self):
         count = 1
-        total = self.calcTotalUrls()
+        total = self.calc_total_urls()
         with open(self.csvPath) as csvfile:
             urlReader = csv.reader(csvfile)
 
@@ -60,4 +60,4 @@ class CSVReader():
 
 
 reader = CSVReader()
-reader.csvIterator()
+reader.csv_iterator()
