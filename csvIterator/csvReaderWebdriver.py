@@ -3,7 +3,7 @@ import csv
 from selenium import webdriver
 from requests_html import HTMLSession
 
-class CSVReader():
+class CSVReaderWeb():
 
     csvPath = 'ticketfly_urls.csv'
 
@@ -22,7 +22,7 @@ class CSVReader():
         else:
             print(baseurl, " --> DO NOT MATCH with current URL: ", current)
 
-    def csv_iterator(self):
+    def csv_iterator_web(self):
         count = 1
         total = self.calc_total_urls()
         with open(self.csvPath) as csvfile:
@@ -33,19 +33,24 @@ class CSVReader():
                 expected = str(row[1])
                 print("Source and Target URLs are: ", row, " || Site #",count, "of ", total, " sites")
                 count = count + 1
+                driver = webdriver.Firefox()
+                driver.implicitly_wait(10)
                 session = HTMLSession()
 
                 ######
                 r = session.get(str(baseUrl))
 
                 if r:
-                    current = r.url
+                    driver.get(baseUrl)
                 else:
                     print("STOPPED BECAUSE ERROR CODE: ", r)
                     print("*" * 100)
+                    driver.close()
                     continue
                 ######
 
+
+                current = driver.current_url
                 print ("Current URL is: ", current)
 
                 #compare URLs are equal
@@ -68,9 +73,8 @@ class CSVReader():
                 #     continue
 
                 #close window
-                #driver.close()
-                continue
+                driver.close()
 
 
-reader = CSVReader()
-reader.csv_iterator()
+reader = CSVReaderWeb()
+reader.csv_iterator_web()
